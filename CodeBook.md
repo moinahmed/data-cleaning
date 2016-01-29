@@ -135,35 +135,30 @@ Here is the glimpse of selected column names:
 
 #### 3 - Uses descriptive activity names to name the activities in the data set
 
-Read activity labels
 ```
+# read activity labels
 activities <- fread(input = 'UCI HAR Dataset/activity_labels.txt', sep = ' ')
-```
 
-Assign names to activities columns
-```
+# assign names to activities columns
 colnames(activities) <- c('label', 'activity')
-```
 
-Assign names to activities columns
-```
+# assign names to activities columns
 colnames(labels) <- c('label')
-```
 
-Merge activity & labels into activity_labels (over label column)
-```
+# merge activity & labels into activity_labels (over label column)
 activity_labels <- merge(x = labels, y = activities, by = 'label', all = TRUE)
-```
 
-Column bind to data; remove redundant label columns
-```
+# column bind to data; remove redundant label columns
 data <- cbind(data, activity_labels$activity)
-```
 
-Give new column a descriptive name
-```
+# give new column a descriptive name
 colnames(data)[89] <- 'activity'
 ```
+This part of assignment pulls activity labels from the file and associate them using class label id to the actual row. There are 6 activity labels are defined in file as follows:
+> [1] "WALKING"            "WALKING_UPSTAIRS"   "WALKING_DOWNSTAIRS" "SITTING"            "STANDING"          
+[6] "LAYING" 
+
+They have been assigned to the filtered data set in the last step.
 
 ===================================
 
