@@ -48,20 +48,18 @@ data <- cbind(features, subjects, labels)
 ```
 Similarly the features, subjects, and labels are combined into one data table through cbind. cbind requires all the combined tables must have same number of rows and combine them into one data table.
 
-Read the features names
+Read the features names and assign to each column:
 ```
+# read the feature_names
 feature_names <- fread(input = 'UCI HAR Dataset/features.txt', sep = ' ')
-```
 
-Assign column names in feature_names
-```
+#assign column names in feature_names
 colnames(feature_names) <- c('id', 'name')
-```
 
-Assign column names to data set
-```
+# assign column names to data set
 colnames(data) <- c(feature_names$name, 'subject', 'label')
 ```
+Next thing I have performed is reading features names from features.txt and then assigned the column names to each column. Prior to that I have assigned column names to each column.
 
 ===================================
 
