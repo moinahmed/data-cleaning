@@ -29,6 +29,8 @@ labels_test <- fread(input = 'UCI HAR Dataset/test/y_test.txt', sep = ' ')
 labels_train <- fread(input = 'UCI HAR Dataset/train/y_train.txt', sep = ' ')
 ```
 
+Through dim(<datatable>) you can get the dimensions of each of the above data table. You can run dim over above data tables and make sure the data load is successful.
+
 
 #### 1 - Merges the training and the test sets to create one data set.
 
@@ -38,11 +40,13 @@ subjects <- rbind(subjects_train, subjects_test)
 features <- rbind(features_train, features_test)
 labels <- rbind(labels_train, labels_test)
 ```
+Here I have combined all the paired up test & train data tables into one file through rbind command. rbind provides you the way to make single data table or frame of two or more data sets. The only criteria required is number of columns must be same in each data table.
 
 Combine features, subjects, and labels columns into one data set
 ```
 data <- cbind(features, subjects, labels)
 ```
+Similarly the features, subjects, and labels are combined into one data table through cbind. cbind requires all the combined tables must have same number of rows and combine them into one data table.
 
 Read the features names
 ```
@@ -183,4 +187,3 @@ write.table(x = tidyset, file = 'tidyset.txt', row.names = FALSE)
 ```
 
 ===================================
--end-
