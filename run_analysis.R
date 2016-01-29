@@ -117,7 +117,7 @@ colnames(data) <- names
 tidyset <- aggregate(. ~subject + activity, data = data, FUN = mean)
 
 # write in file
-write.table(x = tidyset, file = 'tidyset.table')
+write.table(x = tidyset, file = 'tidyset.txt', row.names = FALSE)
 
 # ===================================
 # -end-
