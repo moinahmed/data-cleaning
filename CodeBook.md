@@ -1,35 +1,48 @@
 # Code Book
 
-Assuming the dataset is already download and extracted in working directory with name "UCI HAR Dataset"
+> Assuming the dataset is already download and extracted in working directory with name "UCI HAR Dataset"
 
+run_analysis.R file contains in this repository does all the cleaning and transofrmation work. To do the analysis you need to open the run_analysis.R into RStudio and run line by line.
 
-Include packages
+Include packages:
+```
 library(data.table)
+```
+> **Note:** data.table package to perform all the loadings and processing as it is recommended to use data.table for fast reading and transofrmation of larget data sets into R.
 
 
 Read test & train subjects
+```
 subjects_test <- fread(input = 'UCI HAR Dataset/test/subject_test.txt', sep = ' ')
 subjects_train <- fread(input = 'UCI HAR Dataset/train/subject_train.txt', sep = ' ')
+```
 
 Read test & train features 
+```
 features_train <- fread(input = 'UCI HAR Dataset/train/X_train.txt', sep = ' ')
 features_test <- fread(input = 'UCI HAR Dataset/test/X_test.txt', sep = ' ')
+```
 
 Read test & train class labels 
+```
 labels_test <- fread(input = 'UCI HAR Dataset/test/y_test.txt', sep = ' ')
 labels_train <- fread(input = 'UCI HAR Dataset/train/y_train.txt', sep = ' ')
+```
 
 
-
-### 1 - Merges the training and the test sets to create one data set.
+#### 1 - Merges the training and the test sets to create one data set.
 
 Combine test & train data rows into one
+```
 subjects <- rbind(subjects_train, subjects_test)
 features <- rbind(features_train, features_test)
 labels <- rbind(labels_train, labels_test)
+```
 
 Combine features, subjects, and labels columns into one data set
+```
 data <- cbind(features, subjects, labels)
+```
 
 Read the features names
 feature_names <- fread(input = 'UCI HAR Dataset/features.txt', sep = ' ')
@@ -43,7 +56,7 @@ colnames(data) <- c(feature_names$name, 'subject', 'label')
 ===================================
 
 
-### 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
+#### 2 - Extracts only the measurements on the mean and standard deviation for each measurement.
 
 Get features names; exclude subject and label
 measurements_names <- head(colnames(data), n = -2)
@@ -63,7 +76,7 @@ colnames(data)[87:88] <- c('subject', 'label')
 ===================================
 
 
-### 3 - Uses descriptive activity names to name the activities in the data set
+#### 3 - Uses descriptive activity names to name the activities in the data set
 
 Read activity labels
 activities <- fread(input = 'UCI HAR Dataset/activity_labels.txt', sep = ' ')
@@ -86,7 +99,7 @@ colnames(data)[89] <- 'activity'
 ===================================
 
 
-### 4 - Appropriately labels the data set with descriptive variable names.
+#### 4 - Appropriately labels the data set with descriptive variable names.
 
 names <- colnames(data)
 
@@ -113,7 +126,7 @@ colnames(data) <- names
 ===================================
 
 
-### 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+#### 5 - From the data set in step 4, creates a second, independent tidy data set with the average of each variable for each activity and each subject.
 
 Aggregate by subject & activity
 tidyset <- aggregate(. ~subject + activity, data = data, FUN = mean)
