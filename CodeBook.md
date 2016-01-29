@@ -165,43 +165,32 @@ They have been assigned to the filtered data set in the last step.
 
 #### 4 - Appropriately labels the data set with descriptive variable names.
 
-Pull the names to be processed
 ```
+# pull the names to be processed
 names <- colnames(data)
-```
 
-Replace prefix t with Time
-```
+# replace prefix t with Time
 names <- gsub('^t', 'Time', names)
-```
 
-Replace tBody with TimeBody
-```
+# replace tBody with TimeBody
 names <- gsub("tBody", "TimeBody", names)
-```
 
-Replace prefix f with Frequency
-```
+# replace prefix f with Frequency
 names <- gsub("^f", "Frequency", names)
-```
 
-Replace Acc/Gyro/Mag abbreviations with full word
-```
+# replace Acc/Gyro/Mag abbreviations with full word
 names <- gsub("Acc", "Accelerometer", names)
 names <- gsub("Gyro", "Gyroscope", names)
 names <- gsub("Mag", "Magnitude", names)
-```
 
-Change first letter to Caps
-```
+# change first letter to Caps
 names <- gsub("angle", "Angle", names)
 names <- gsub("gravity", "Gravity", names)
-```
 
-Assign processed names back to colnames(data)
-```
+# assign processed names back to colnames(data)
 colnames(data) <- names
 ```
+Here we do the some cleaning and transofrmation of column names and making them more descriptive and readable for the user.
 
 ===================================
 
@@ -212,6 +201,8 @@ Aggregate by subject & activity
 ```
 tidyset <- aggregate(. ~subject + activity, data = data, FUN = mean)
 ```
+The aggregate on Subject & Activity has been performed in this step.
+
 
 Write in file as instructed with row.names = FALSE
 ```
